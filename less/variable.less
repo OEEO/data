@@ -1,0 +1,141 @@
+/*把像素转成vw
+ 375/10  = 3.75
+ 375 它是ipone6的屏幕宽度
+*/
+.fs(@px){
+  font-size: unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    font-size: unit(@px * 1.7, px);
+  }
+}
+.w(@px){
+  width: unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    width: unit(@px * 1.7, px);
+  }
+}
+.h(@px){
+  height: unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    height: unit(@px * 1.7, px);
+  }
+}
+.lh(@px){
+  line-height: unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    line-height: unit(@px * 1.7, px);
+  }
+}
+.pl(@px){
+  padding-left: unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    padding-left: unit(@px * 1.7, px);
+  }
+}
+.pr(@px){
+  padding-right: unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    padding-right: unit(@px * 1.7, px);
+  }
+}
+.pt(@px){
+  padding-top: unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    padding-top: unit(@px * 1.7, px);
+  }
+}
+.pb(@px){
+  padding-bottom: unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    padding-bottom: unit(@px * 1.7, px);
+  }
+}
+
+.mt(@px){
+  margin-top:unit(@px/3.75,vw);;
+  @media screen and (min-width: 640px) {
+    margin-top: unit(@px * 1.7, px);
+  }
+}
+.mb(@px){
+  margin-bottom:unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    margin-bottom: unit(@px * 1.7, px);
+  }
+}
+.ml(@px){
+  margin-left:unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    margin-left: unit(@px * 1.7, px);
+  }
+}
+.mr(@px){
+  margin-right:unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    margin-right: unit(@px * 1.7, px);
+  }
+}
+.top(@px){
+  top:unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    top: unit(@px * 1.7, px);
+  }
+}
+.bottom(@px){
+  bottom:unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    bottom: unit(@px * 1.7, px);
+  }
+}
+.left(@px){
+  left:unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    left: unit(@px * 1.7, px);
+  }
+}
+.right(@px){
+  right:unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    right: unit(@px * 1.7, px);
+  }
+}
+.padding(@tb,@lr){
+  padding: unit(@tb/3.75,vw) unit(@lr/3.75,vw);;
+  @media screen and (min-width: 640px) {
+    padding: unit(@tb * 1.7, px) unit(@lr * 1.7, px);;
+  }
+}
+.margin(@tb,@lr){
+  margin: unit(@tb/3.75,vw) unit(@lr/3.75,vw);;
+  @media screen and (min-width: 640px) {
+    margin: unit(@tb * 1.7, px) unit(@lr * 1.7, px);;
+  }
+}
+.minW(@px){
+ min-width: unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    min-width: unit(@px * 1.7, px);
+  }
+}
+.minH(@px){
+ min-height: unit(@px/3.75,vw);
+  @media screen and (min-width: 640px) {
+    min-height: unit(@px * 1.7, px);
+  }
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.clearfix{
+  clear: both !important;
+}
+
+@media screen and (min-width: 640px) {
+  body {
+    max-width: 640px !important;
+    margin: 0 auto;
+  }
+}
