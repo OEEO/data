@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    #main {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<body>
+    <div id="main">
+        <canvas id="cropCanvas" width="800" height="800"></canvas>
+    </div>
+
+    <script src="./jquery-1.11.1.min.js"></script>
+<script>
+    function canvasRenderImage(canvasId, imgUrl){
+        return new Promise((resolve, reject) => {
+            let image = new Image()
+            image.src = imgUrl
+            image.setAttribute('crossOrigin', 'Anonymous')
+            // 解决图片跨域问题
+            image.onload = function () {
+                let canvas = document.getElementById(canvasId)
+                let W = canvas.width
+                let H = canvas.height
+                let imgWidth = image.width
+                let imgHeight = image.height
+                // 让图片在canvas容器完整显示
+                let getAdjustSize = (W, H, width, height) => {
+                    let screanRatio = W / H
+                    let imgRatio = width / height
+                    let scale = 1
+                    if (imgRatio > screanRatio) {
+                        scale = width / W
+                        if (scale > 1) {
+                            width = W
+                            height = height / scale
+                        }
+                    } else {
+                        scale = height / H
+                        if (scale > 1) {
+                            height = H
+                            width = width / scale
+                        }
+                    }
+                    let top =  (H - height) / 2
+                    let left = (W - width) / 2
+                    return {
+                        width: width,
+                        height: height,
+                        top: top,
+                        left: left
+                    }
+                }
+                let position = getAdjustSize(W, H, imgWidth, imgHeight)
+                let ctx = canvas.getContext("2d")
+                canvas.width = position.width
+                canvas.height = position.height
+                ctx.drawImage(image, 0, 0, position.width, position.height)
+                let _base64 = canvas.toDataURL('image/jpeg', 1)
+                _base64 = _base64.substr(22)
+                resolve(_base64)
+            }
+        })
+    }
+
+    function canvasCropImage (canvasId, position) {
+        //获取canvas画布相应区域的图像信息，并返回其base64格式的图像
+        function getBase64Image(context, x1, y1, x2, y2) {
+            var dataImg = context.getImageData(x1, y1, x2, y2);
+            var canvas2 = document.createElement('canvas');
+            var context2 = canvas2.getContext('2d');
+            var width = Math.abs(x1 - x2);
+            var height = Math.abs(y1 - y2);
+            canvas2.width = width;
+            canvas2.height = height;
+            context2.putImageData(dataImg, 0, 0, 0, 0, width, height);
+            var res = canvas2.toDataURL('image/jpeg');
+            return res;
+        }
+
+        var canvas = document.getElementById(canvasId);
+        var context =canvas.getContext('2d');
+        //获取base64格式图像信息
+        let x1 = position.left
+        let y1 = position.top
+        let x2 = position.left + position.width
+        let y2 = position.top + position.height
+        var imgBase64 = getBase64Image(context, x1, y1, x2, y2);
+        // 显示裁剪后区域
+        context.fillStyle = 'rgba(0,0,0,0.7)';
+        context.fillRect(0, 0, canvas.width, y1);
+        context.fillRect(0, 0, x1, canvas.height);
+        context.fillRect(x2, 0, canvas.width - x2, canvas.height);
+        context.fillRect(0, y2, canvas.width, canvas.height - y2);
+
+        context.moveTo(x1, y1)
+        context.lineTo(x2, y1)
+        context.lineTo(x2, y2)
+        context.lineTo(x1, y2)
+        context.lineTo(x1, y1)
+        context.lineWidth = 2;
+        context.strokeStyle = '#fff';
+        context.stroke()
+
+        return imgBase64
+    }
+
+
+    let imgUrl = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542365419683&di=9494142c9148e3ac06b6ae596d2c6b03&imgtype=0&src=http%3A%2F%2Fe.hiphotos.baidu.com%2Fimage%2Fpic%2Fitem%2F562c11dfa9ec8a13aff433b3fa03918fa1ecc0f3.jpg'
+    // imgUrl = './red_wine_imgs/1.jpg'
+    canvasRenderImage('cropCanvas', imgUrl)
+
+
+    let position = {
+        left: 100,
+        top: 100,
+        width: 300,
+        height: 300
+    }
+
+    canvasCropImage('cropCanvas', position)
+
+</script>
+</body>
+</html>
