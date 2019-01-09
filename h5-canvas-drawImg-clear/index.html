@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-1.11.1.min.js"></script>
+    <script src="lrz.all.bundle.js"></script>
+    <script src="index.js?time=3333"></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    html,body {
+        width: 100%;
+    }
+    #kcCanvas-wrap {
+        position: relative;
+        width: 100%;
+        background-color: #313131;
+        flex: 1;
+    }
+    #kcCanvas {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+    #imgsearch-container {
+        width: 100%;
+        max-width: 750px;
+        margin: 0 auto;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+<body>
+    <div id="imgsearch-container">
+        <input type="file" accept="image/*" id="cameraInput" name="cameraInput" class="sign_file" onchange="showPreview(this)" />
+
+        <div id="kcCanvas-wrap">
+            <canvas id="kcCanvas" style="display: block"></canvas>
+        </div>
+    </div>
+</body>
+</html>
